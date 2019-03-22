@@ -1,0 +1,83 @@
+﻿<html>
+	<head>
+		<title>update Emp</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="top_content">
+				<div id="header">
+					<div id="rightheader">
+						<p>2009/11/20<br /></p>
+					</div>
+					<div id="topheader">
+						<h1 id="title">
+							<a href="#">Main</a>
+						</h1>
+					</div>
+					<div id="navigation">
+					</div>
+				</div>
+
+				<div id="content">
+					<p id="whereami"></p>
+					<h1>User Detail:</h1>
+					<table class="table">
+						<tr>
+                            <td>姓名</td>
+							<td>电话</td>
+                        </tr>
+                        {% for f in infor %}
+						<tr>
+							<td>{{ f.realname }}</td>
+							<td>{{ f.telephone }}</td>
+						</tr>
+                        {% endfor %}
+					</table>
+					<h1>对方要求:</h1>
+					<table>
+                        {% for f in infor %}
+						<tr>
+							<td colspan="2">
+								<textarea cols="80" style="border:0px;resize:none;">{{ f.require }}</textarea>
+							</td>
+						</tr>
+                        {% endfor %}
+					</table>
+					<br/>
+					<h1>
+						Load Photo:
+					</h1>
+                        {% for f in infor %}
+						<form action="/userphoto/?id={{ f.id }}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+							Upload File Name:
+							<input type="file" name="img" />
+							<input type="submit" value="confirm" />
+						</form>
+                        {% endfor %}
+
+					<h1>
+						view photo:
+					</h1>
+					<table>
+                        {% for f in infor %}
+                        <tr>
+                            <td>
+                                <img src="/static/img/img/{{ f.img }}" width="300">
+                            </td>
+                        </tr>
+                        {% endfor %}
+					</table>
+				</div>
+				<input type="button" onclick="location='/login/'" value="查看所有用户"/>
+			</div>
+			<div id="footer">
+				<div id="footer_bg">
+					ABC@126.com
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
